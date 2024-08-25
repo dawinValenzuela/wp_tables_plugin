@@ -52,35 +52,32 @@ $controller = new WP_Easy_Tables_Walkers_Controller();
         <thead>
             <tr>
                 <th id="user_id" class="manage-column column-columnname" scope="col">ID</th>
-                <th id="user_login" class="manage-column column-columnname" scope="col">Nombre</th>
-                <th id="user_login" class="manage-column column-columnname" scope="col">Apellido</th>
+                <th id="user_name" class="manage-column column-columnname" scope="col">Nombre</th>
+                <th id="user_lastname" class="manage-column column-columnname" scope="col">Apellido</th>
                 <th id="user_email" class="manage-column column-columnname" scope="col">Email</th>
-                <th id="user_registered" class="manage-column column-columnname" scope="col">Telefono</th>
-                <th id="user_role" class="manage-column column-columnname" scope="col">Fecha de Nacimiento</th>
-                <th id="user_role" class="manage-column column-columnname" scope="col">Eps</th>
+                <th id="user_phone" class="manage-column column-columnname" scope="col">Telefono</th>
+                <th id="user_birthdate" class="manage-column column-columnname" scope="col">Fecha de Nacimiento</th>
+                <th id="user_eps" class="manage-column column-columnname" scope="col">Eps</th>
+                <th id="user_actions" class="manage-column column-columnname" scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php if (!empty($walkers)) : ?>
                 <?php
                     foreach ( $walkers as $walker ) {
-                        $walker_id = $walker->id;
-                        $walker_name = $walker->first_name;
-                        $walker_lastname = $walker->last_name;
-                        $walker_email = $walker->email;
-                        $walker_phone = $walker->phone_number;
-                        $walker_birthdate = $walker->birthdate;
-                        $walker_eps = $walker->eps;
-                        
-                        echo "<tr>
-                                <td>{$walker_id}</td>
-                                <td>{$walker_name}</td>
-                                <td>{$walker_lastname}</td>
-                                <td>{$walker_email}</td>
-                                <td>{$walker_phone}</td>
-                                <td>{$walker_birthdate}</td>
-                                <td>{$walker_eps}</td>
-                            </tr>";
+                        // Serializar el objeto $walker en un formato JSON seguro para HTML
+                        $walker_data_json = esc_attr(json_encode($walker));
+
+                        echo '<tr class="user-table-row" data-walker=\'' . $walker_data_json . '\'>';
+                            echo '<td>' . esc_html($walker->id) . '</td>';
+                            echo '<td>' . esc_html($walker->first_name) . '</td>';
+                            echo '<td>' . esc_html($walker->last_name) . '</td>';
+                            echo '<td>' . esc_html($walker->email) . '</td>';
+                            echo '<td>' . esc_html($walker->phone_number) . '</td>';
+                            echo '<td>' . esc_html($walker->birthdate) . '</td>';
+                            echo '<td>' . esc_html($walker->eps) . '</td>';
+                            echo '<td class="user-action-container"></td>';
+                        echo '</tr>';
                     }
                 ?>
             <?php else : ?>

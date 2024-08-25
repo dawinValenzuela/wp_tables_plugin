@@ -3,7 +3,7 @@ import { Modal, Button, TextControl } from "@wordpress/components";
 
 const UserRowActions = ({ userData }) => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [name, setName] = useState(userData.name);
+  const [name, setName] = useState(userData.first_name);
   const [email, setEmail] = useState(userData.email);
 
   const handleSave = () => {
@@ -14,7 +14,7 @@ const UserRowActions = ({ userData }) => {
 
   return (
     <>
-      <Button isPrimary onClick={() => setModalOpen(true)}>
+      <Button variant="primary" onClick={() => setModalOpen(true)}>
         Editar
       </Button>
       {isModalOpen && (
@@ -33,7 +33,7 @@ const UserRowActions = ({ userData }) => {
             onChange={(value) => setEmail(value)}
           />
           {/* Agrega más campos según sea necesario */}
-          <Button isPrimary onClick={handleSave}>
+          <Button variant="secondary" onClick={handleSave}>
             Guardar
           </Button>
         </Modal>
@@ -46,13 +46,11 @@ const UserRowActions = ({ userData }) => {
 const renderUserRowActions = () => {
   const userTableRows = document.querySelectorAll(".user-table-row");
   userTableRows.forEach((row) => {
-    const userData = {
-      name: row.dataset.name,
-      email: row.dataset.email,
-      // Añade más datos del usuario si es necesario
-    };
+    const walkerData = JSON.parse(row.getAttribute("data-walker"));
+    console.log(walkerData);
+
     const container = row.querySelector(".user-action-container");
-    wp.element.render(<UserRowActions userData={userData} />, container);
+    wp.element.render(<UserRowActions userData={walkerData} />, container);
   });
 };
 

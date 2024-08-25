@@ -10,6 +10,9 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
+define('WP_EASY_TABLES_URL', plugin_dir_url(__FILE__));
+define('WP_EASY_TABLES_PATH', plugin_dir_path(__FILE__));
+
 function activate_wp_easy_tables() {
     require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp_easy_tables-activator.php';
     WP_Easy_Tables_Activator::activate();

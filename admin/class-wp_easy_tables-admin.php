@@ -51,5 +51,24 @@ class WP_Easy_Tables_Admin {
     public function register_settings() {
         // Registra configuraciones si es necesario.
     }
+
+    function wp_easy_tables_enqueue_assets() {
+        wp_enqueue_script(
+            'wp-easy-tables-scripts',
+            WP_EASY_TABLES_URL . 'build/bundle.js',
+            ['wp-element', 'wp-components'],
+            filemtime(WP_EASY_TABLES_PATH . 'build/bundle.js'),
+            true
+        );
+
+        wp_enqueue_style('wp-components');
+        // Encolar los estilos de los componentes de WordPress
+        // wp_enqueue_style(
+        //     'wp-components', // Identificador del estilo de los componentes de WordPress
+        //     plugins_url('/build/style.css', __FILE__),
+        //     array('wp-edit-blocks'), // Dependencia de Gutenberg
+        //     filemtime(plugin_dir_path(__FILE__) . '/build/style.css')
+        // );
+    }
 }
 ?>

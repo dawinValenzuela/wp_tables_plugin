@@ -19,6 +19,7 @@ class WP_Easy_Tables {
         $plugin_admin = new WP_Easy_Tables_Admin( $this->get_plugin_name(), $this->get_version() );
         add_action( 'admin_menu', array( $plugin_admin, 'add_plugin_admin_menu' ) );
         add_action( 'admin_init', array( $plugin_admin, 'register_settings' ) );
+        add_action('admin_enqueue_scripts', array( $plugin_admin, 'wp_easy_tables_enqueue_assets' ) );
     }
 
     public function run() {
