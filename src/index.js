@@ -1,5 +1,6 @@
 import { useState } from "@wordpress/element";
 import { Modal, Button, TextControl } from "@wordpress/components";
+import { TableActions } from "./components/Table";
 
 const UserRowActions = ({ userData }) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -42,15 +43,24 @@ const UserRowActions = ({ userData }) => {
   );
 };
 
+const UserTableBase = () => {
+  return (
+    <>
+      <TableActions />
+    </>
+  );
+};
+
 // Renderizar el componente
 const renderUserRowActions = () => {
   const userTableRows = document.querySelectorAll(".user-table-row");
   userTableRows.forEach((row) => {
     const walkerData = JSON.parse(row.getAttribute("data-walker"));
-    console.log(walkerData);
+    // console.log(walkerData);
 
     const container = row.querySelector(".user-action-container");
-    wp.element.render(<UserRowActions userData={walkerData} />, container);
+    // wp.element.render(<UserRowActions userData={walkerData} />, container);
+    wp.element.render(<UserTableBase />, container);
   });
 };
 
