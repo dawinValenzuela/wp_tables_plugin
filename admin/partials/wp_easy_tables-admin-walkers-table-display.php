@@ -4,8 +4,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-require_once plugin_dir_path(__FILE__) . '../controllers/class-wp-easy-tables-walkers-controller.php';
-
 $controller = new WP_Easy_Tables_Walkers_Controller();
 ?>
 
@@ -43,6 +41,9 @@ $controller = new WP_Easy_Tables_Walkers_Controller();
         <!-- Clear filters -->
         <a href="<?php echo admin_url('admin.php?page=wp_easy_tables'); ?>">Clear Filters</a>
     </form>
+    <div class ="migrate-button-container">
+        <button id="migrate-walkers" class="button button-primary">Migrate Walkers</button>
+    </div>
 
     <?php
         $walkers = $controller->get_walkers();

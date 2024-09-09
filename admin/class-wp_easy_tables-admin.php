@@ -7,6 +7,18 @@ class WP_Easy_Tables_Admin {
     public function __construct( $plugin_name, $version ) {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
+        $this->load_dependencies();
+        $this->define_hooks();
+    }
+
+    private function load_dependencies() {
+        require_once WP_EASY_TABLES_PATH . 'admin/controllers/class-wp-easy-tables-walkers-controller.php';
+    }
+
+    private function define_hooks() {
+        $walkers_controller = new WP_Easy_Tables_Walkers_Controller();
+        add_action('wp_ajax_migrate_walkers', array($walkers_controller, 'migrate_walkers'));
+        add_action('wp_ajax_testing_action', array($walkers_controller, 'testing_action'));
     }
 
     public function add_plugin_admin_menu() {
@@ -52,6 +64,11 @@ class WP_Easy_Tables_Admin {
         // Registra configuraciones si es necesario.
     }
 
+    // function load_enqueues() {
+    //     add_action('wp_ajax_testing_action', array($this, 'testing_action'));
+    //     add_action('admin_enqueue_scripts', array($this, 'wp_easy_tables_enqueue_assets'));
+    // }
+
     function wp_easy_tables_enqueue_assets() {
         wp_enqueue_script(
             'wp-easy-tables-scripts',
@@ -62,13 +79,32 @@ class WP_Easy_Tables_Admin {
         );
 
         wp_enqueue_style('wp-components');
-        // Encolar los estilos de los componentes de WordPress
-        // wp_enqueue_style(
-        //     'wp-components', // Identificador del estilo de los componentes de WordPress
-        //     plugins_url('/build/style.css', __FILE__),
-        //     array('wp-edit-blocks'), // Dependencia de Gutenberg
-        //     filemtime(plugin_dir_path(__FILE__) . '/build/style.css')
+
+        // enqueue estilos para la tabla de walkers
+        wp_enqueue_script(
+            'wp-easy-tables-walkers-table',
+            WP_EASY_TABLES_URL . 'admin/js/wp_easy_tables_admin_walkers.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
+
+        // javascrip de la tabla walkers
+        // wp_enqueue_script(
+        //     'wp-easy-tables-walkers-table',
+        //     plugins_url('/assets/js/wp-easy-tables.js', __FILE__), // Ruta al script correcto
+        //     array('jquery'), // Asegúrate de que jQuery esté cargado
+        //     filemtime(plugin_dir_path(__FILE__) . '/assets/js/wp-easy-tables.js'),
+        //     true
         // );
+
+
+        // ajaxurl variable to use in the js file
+        wp_localize_script(
+            'wp-easy-tables-walkers-table',
+            'wp_easy_tables_ajax',
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' ) )
+        );
     }
 }
 ?>

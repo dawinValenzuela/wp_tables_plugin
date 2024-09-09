@@ -12,8 +12,6 @@ export const UserModal = ({ setModalOpen, data }) => {
     defaultValues: data,
   });
 
-  console.log({ data });
-
   const onSubmit = () => {
     // Aquí deberías manejar la lógica para guardar los cambios
     console.log("Saving user data...");

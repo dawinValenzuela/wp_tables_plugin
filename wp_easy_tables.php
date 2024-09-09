@@ -30,7 +30,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp_easy_tables.php';
 
 function run_wp_easy_tables() {
     $plugin = new WP_Easy_Tables();
-    $plugin->run();
+    // $plugin->run();
 }
 run_wp_easy_tables();
 ?>
