@@ -1,16 +1,12 @@
 <?php
-
-/**
- * fields: retreat_name, first_name, last_name, email, phone_number, birthdate, eps, marital_status, residence_address, address_complement_one, municipality, shirt_size, emergency_contact_name_1, emergency_contact_phone_1, emergency_contact_relationship_1, emergency_contact_name_2
- * emergency_contact_phone_2, emergency_contact_relationship_2, invited_by_name, invited_by_phone, invited_contact_is_servant, invited_by_relationship, medical_condition, special_diet, payment_by_name, payment_by_phone, additional_notes
- */
-
 class WP_Easy_Tables_Activator
 {
     public static function activate()
     {
         // Código para la activación del plugin.
         self::create_walkers_table();
+        self::create_server_table();
+        self::create_churches();
     }
 
     // function to create a new table for walkers, this should be call it when activate the plugin
@@ -59,5 +55,76 @@ class WP_Easy_Tables_Activator
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
+    }
+
+    public static function create_server_table()
+    {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'easy_tables_servers';
+
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            submission_id mediumint(9) NOT NULL,
+            retreat_name varchar(255) NOT NULL,
+            first_name varchar(255) NOT NULL,
+            last_name varchar(255) NOT NULL,
+            email varchar(255) NOT NULL,
+            phone_number varchar(50) NOT NULL,
+            birthdate date NOT NULL,
+            eps varchar(255) NOT NULL,
+            church varchar(255) NOT NULL,
+            emergency_contact_name varchar(255) NOT NULL,
+            emergency_contact_phone varchar(50) NOT NULL,
+            emergency_contact_relationship varchar(100) NOT NULL,
+            medical_condition text,
+            special_diet text,
+            additional_info text,  -- Campo para almacenar más información como JSON
+            PRIMARY KEY  (id),
+            UNIQUE KEY unique_submission_id (submission_id),
+            UNIQUE KEY unique_email (email)
+        ) $charset_collate;";
+    }
+
+    public static function create_churches()
+    {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'easy_tables_churches';
+
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            church_name varchar(255) NOT NULL,
+            PRIMARY KEY  (id),
+            UNIQUE KEY unique_church_name (church_name)
+        ) $charset_collate;";
+
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        dbDelta($sql);
+
+        // Lista de iglesias para insertar
+        $churches = array(
+            'Divino Niño',
+            'Chiquinquira',
+            'Cristo Misionero',
+            'Divina Misericordia',
+            'Espiritu Santo - Aguachica',
+            'Maria Reina de las Misiones',
+            'Nuestra Señora - Lagos',
+            'Sagrado Corazón de Jesus',
+            'San Rafael Arcangel - Piedecuesta'
+        );
+
+        // Verificar si ya existen datos para no duplicar
+        foreach ($churches as $church_name) {
+            // Comprobar si ya existe la iglesia
+            $exists = $wpdb->get_var($wpdb->prepare("SELECT id FROM $table_name WHERE church_name = %s", $church_name));
+            if (!$exists) {
+                // Insertar si no existe
+                $wpdb->insert($table_name, array('church_name' => $church_name));
+            }
+        }
     }
 }
