@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "build": "npx webpack --mode production",
+    "package": "npm run build && zip -r wp-easy-tables.zip ./ -x 'node_modules/*' -x 'src/*' -x '*.zip' -x '*.log'"
+  },
   "dependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",

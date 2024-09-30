@@ -16,13 +16,15 @@ class WP_Easy_Tables_Admin
     private function load_dependencies()
     {
         require_once WP_EASY_TABLES_PATH . 'admin/controllers/class-wp-easy-tables-walkers-controller.php';
+        require_once WP_EASY_TABLES_PATH . 'admin/controllers/class-wp-easy-tables-servers-controller.php';
     }
 
     private function define_hooks()
     {
         $walkers_controller = new WP_Easy_Tables_Walkers_Controller();
+        $servers_controller = new WP_Easy_Tables_Servers_Controller();
         add_action('wp_ajax_migrate_walkers', array($walkers_controller, 'migrate_walkers'));
-        add_action('wp_ajax_testing_action', array($walkers_controller, 'testing_action'));
+        add_action('wp_ajax_migrate_servers', array($servers_controller, 'migrate_servers'));
     }
 
     public function add_plugin_admin_menu()
@@ -89,10 +91,19 @@ class WP_Easy_Tables_Admin
 
         wp_enqueue_style('wp-components');
 
-        // enqueue estilos para la tabla de walkers
+        // enqueue javascript para la tabla de walkers
         wp_enqueue_script(
             'wp-easy-tables-walkers-table',
             WP_EASY_TABLES_URL . 'admin/js/wp_easy_tables_admin_walkers.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+
+        // enqueue javascript para la tabla de servidores
+        wp_enqueue_script(
+            'wp-easy-tables-servers-table',
+            WP_EASY_TABLES_URL . 'admin/js/wp_easy_tables_admin_servers.js',
             array('jquery'),
             $this->version,
             false
@@ -112,6 +123,13 @@ class WP_Easy_Tables_Admin
         wp_localize_script(
             'wp-easy-tables-walkers-table',
             'wp_easy_tables_ajax',
+            array('ajax_url' => admin_url('admin-ajax.php'))
+        );
+
+        // ajaxurl variable to use in the js file for servers
+        wp_localize_script(
+            'wp-easy-tables-servers-table',
+            'wp_easy_tables_servers_ajax',
             array('ajax_url' => admin_url('admin-ajax.php'))
         );
     }

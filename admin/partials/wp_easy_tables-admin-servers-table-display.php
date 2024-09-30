@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$controller = new WP_Easy_Tables_Walkers_Controller();
+$controller = new WP_Easy_Tables_Servers_Controller();
 ?>
 
 <div class="wrap">
@@ -46,7 +46,7 @@ $controller = new WP_Easy_Tables_Walkers_Controller();
     </div>
 
     <?php
-    $walkers = $controller->get_walkers();
+    $walkers = $controller->get_servers();
     ?>
 
     <table class="widefat fixed" cellspacing="0">

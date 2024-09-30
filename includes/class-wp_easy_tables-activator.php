@@ -75,6 +75,7 @@ class WP_Easy_Tables_Activator
             birthdate date NOT NULL,
             eps varchar(255) NOT NULL,
             church varchar(255) NOT NULL,
+            first_service_date date NOT NULL,
             emergency_contact_name varchar(255) NOT NULL,
             emergency_contact_phone varchar(50) NOT NULL,
             emergency_contact_relationship varchar(100) NOT NULL,
@@ -85,6 +86,9 @@ class WP_Easy_Tables_Activator
             UNIQUE KEY unique_submission_id (submission_id),
             UNIQUE KEY unique_email (email)
         ) $charset_collate;";
+
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        dbDelta($sql);
     }
 
     public static function create_churches()
