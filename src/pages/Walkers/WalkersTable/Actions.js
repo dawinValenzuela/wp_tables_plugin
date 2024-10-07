@@ -1,16 +1,16 @@
 import { generateTableActions } from "../../../components/Table";
 
-export const WalkersTableAction = ({ onEditClick, onDeleteClick }) => {
+export const WalkersTableAction = ({ onEditClick, onNotesClick }) => {
   const actions = [
     {
-      label: "Editar",
+      label: "Ver",
       onClick: onEditClick,
       variant: "primary",
       size: "small",
     },
     {
-      label: "Eliminar",
-      onClick: onDeleteClick,
+      label: "Notas",
+      onClick: onNotesClick,
       variant: "secondary",
       size: "small",
     },

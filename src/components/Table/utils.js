@@ -10,7 +10,6 @@ export const generateTableActions = (actions) => {
     <ButtonGroup>
       {actions.map((action, index) => {
         const { onClick, label, ...rest } = action;
-        console.log({ label, index });
         return (
           <Button key={index} onClick={onClick} {...rest}>
             {label}

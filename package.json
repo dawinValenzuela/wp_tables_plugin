@@ -7,6 +7,7 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
+    "@wordpress/api-fetch": "^7.9.0",
     "@wordpress/components": "^28.6.0",
     "@wordpress/element": "^6.6.0",
     "@wordpress/hooks": "^4.6.0",

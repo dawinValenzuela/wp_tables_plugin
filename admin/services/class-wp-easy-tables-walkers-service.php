@@ -249,4 +249,31 @@ class WP_Easy_Tables_Walkers_Service
             'additional_notes' => $walker->additional_notes,
         );
     }
+
+    public function get_walker($walker_id)
+    {
+        global $wpdb;
+        $walkers_table = $wpdb->prefix . 'easy_tables_walkers';
+        return $wpdb->get_row($wpdb->prepare("SELECT * FROM $walkers_table WHERE id = %d", $walker_id));
+    }
+
+    public function update_additional_info($walker_id, $additional_info)
+    {
+        // Check that the walker exists
+        $walker = $this->get_walker($walker_id);
+
+        if (!$walker) {
+            return array('success' => false, 'message' => 'El caminante no existe.');
+        }
+
+        global $wpdb;
+        $walkers_table = $wpdb->prefix . 'easy_tables_walkers';
+        $result = $wpdb->update($walkers_table, array('additional_info' => $additional_info), array('id' => $walker_id));
+
+        if ($result === false) {
+            return array('success' => false, 'message' => 'Error al actualizar la información adicional.');
+        }
+
+        return array('success' => true, 'message' => 'Información adicional actualizada correctamente.');
+    }
 }

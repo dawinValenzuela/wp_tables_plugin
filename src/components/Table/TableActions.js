@@ -8,12 +8,12 @@ export const TableActions = () => {
       variant: "primary",
       size: "small",
     },
-    {
-      label: "Eliminar",
-      onClick: () => console.log("Delete user"),
-      variant: "secondary",
-      size: "small",
-    },
+    // {
+    //   label: "Eliminar",
+    //   onClick: () => console.log("Delete user"),
+    //   variant: "secondary",
+    //   size: "small",
+    // },
   ];
 
   return generateTableActions(actions);

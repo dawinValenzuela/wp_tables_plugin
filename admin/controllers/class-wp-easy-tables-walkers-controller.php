@@ -41,4 +41,22 @@ class WP_Easy_Tables_Walkers_Controller
         // Finalizar la ejecución del script
         wp_die();
     }
+
+    public function update_additional_info($request)
+    {
+        $walker_id = $request->get_param('walker_id');
+        $additional_info = $request->get_param('additional_info');
+
+        $result = $this->service->update_additional_info($walker_id, $additional_info);
+
+        // Enviar la respuesta como JSON
+        if ($result['success']) {
+            wp_send_json_success($result);
+        } else {
+            wp_send_json_error($result['message']);
+        }
+
+        // Finalizar la ejecución del script
+        wp_die();
+    }
 }

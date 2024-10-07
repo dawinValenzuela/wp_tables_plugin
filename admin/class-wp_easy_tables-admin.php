@@ -11,6 +11,7 @@ class WP_Easy_Tables_Admin
         $this->version = $version;
         $this->load_dependencies();
         $this->define_hooks();
+        $this->define_admin_apis();
     }
 
     private function load_dependencies()
@@ -26,6 +27,37 @@ class WP_Easy_Tables_Admin
         add_action('wp_ajax_migrate_walkers', array($walkers_controller, 'migrate_walkers'));
         add_action('wp_ajax_migrate_servers', array($servers_controller, 'migrate_servers'));
     }
+
+    private function define_admin_apis()
+    {
+        add_action('rest_api_init', function () {
+            // register_rest_route('wp-easy-tables/v1', '/migrate-walkers', array(
+            //     'methods' => 'POST',
+            //     'callback' => array($this, 'migrate_walkers'),
+            //     'permission_callback' => function () {
+            //         return current_user_can('manage_options');
+            //     }
+            // ));
+
+            // register_rest_route('wp-easy-tables/v1', '/migrate-servers', array(
+            //     'methods' => 'POST',
+            //     'callback' => array($this, 'migrate_servers'),
+            //     'permission_callback' => function () {
+            //         return current_user_can('manage_options');
+            //     }
+            // ));
+
+            // route to add additional info to walkers
+            register_rest_route('wp-easy-tables/v1', '/update-walker-additional-info', array(
+                'methods' => 'POST',
+                'callback' => array(new WP_Easy_Tables_Walkers_Controller(), 'update_additional_info'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            ));
+        });
+    }
+
 
     public function add_plugin_admin_menu()
     {
@@ -131,6 +163,13 @@ class WP_Easy_Tables_Admin
             'wp-easy-tables-servers-table',
             'wp_easy_tables_servers_ajax',
             array('ajax_url' => admin_url('admin-ajax.php'))
+        );
+
+        // define nonce.
+        wp_localize_script(
+            'wp-easy-tables-scripts',
+            'wp_easy_tables_nonce',
+            array('nonce' => wp_create_nonce('wp_easy_tables_nonce'))
         );
     }
 }
