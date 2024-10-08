@@ -1,0 +1,42 @@
+/* 
+* wp-easy-tables-table-container table with scroll in the width
+*/
+
+.wp-easy-tables-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Para un desplazamiento suave en dispositivos móviles */
+}
+
+.wp-easy-tables-table-container {
+  display: inline-block;
+  min-width: 1000px; /* Ajusta este valor según el número de columnas */
+}
+
+.wp-easy-tables-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* Permite que las celdas se ajusten automáticamente */
+  background-color: #f9f9f9; /* Fondo de la tabla */
+}
+
+.wp-easy-tables-table-container th,
+.wp-easy-tables-table-container td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+  white-space: nowrap; /* Evita que el texto haga un salto de línea */
+  min-width: 100px; /* Asegura un ancho mínimo para las celdas */
+}
+
+@media (max-width: 768px) {
+  .wp-easy-tables-table-container {
+    min-width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+  }
+}
+
+.wp-easy-tables-toolbar-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}

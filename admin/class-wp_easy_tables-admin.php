@@ -150,6 +150,15 @@ class WP_Easy_Tables_Admin
             false
         );
 
+        // enqueue css para la tabla de servidores
+        wp_enqueue_style(
+            'wp-easy-tables-servers-table',
+            WP_EASY_TABLES_URL . 'admin/css/wp_easy_tables_admin.css',
+            array(),
+            $this->version,
+            'all'
+        );
+
 
         // ajaxurl variable to use in the js file
         wp_localize_script(
