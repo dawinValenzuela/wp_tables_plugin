@@ -55,6 +55,15 @@ class WP_Easy_Tables_Admin
                     return true;
                 }
             ));
+
+            // export walkers to excel
+            register_rest_route('wp-easy-tables/v1', '/export-walkers', array(
+                'methods' => 'GET',
+                'callback' => array(new WP_Easy_Tables_Walkers_Controller(), 'export_walkers_to_excel'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            ));
         });
     }
 
@@ -140,15 +149,6 @@ class WP_Easy_Tables_Admin
             $this->version,
             false
         );
-
-        // javascrip de la tabla walkers
-        // wp_enqueue_script(
-        //     'wp-easy-tables-walkers-table',
-        //     plugins_url('/assets/js/wp-easy-tables.js', __FILE__), // Ruta al script correcto
-        //     array('jquery'), // Asegúrate de que jQuery esté cargado
-        //     filemtime(plugin_dir_path(__FILE__) . '/assets/js/wp-easy-tables.js'),
-        //     true
-        // );
 
 
         // ajaxurl variable to use in the js file

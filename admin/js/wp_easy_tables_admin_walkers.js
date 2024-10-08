@@ -32,4 +32,18 @@
       });
     });
   });
+
+  // export walkers button call id = export-walkers
+  $(document).ready(function () {
+    $("#export-walkers").on("click", function (e) {
+      e.preventDefault();
+      // Confirmar antes de realizar la acción
+      if (!confirm("¿Estás seguro de que deseas exportar los datos?")) {
+        return;
+      }
+
+      // Redirigir a la URL de exportación
+      window.location.href = "/wp-json/wp-easy-tables/v1/export-walkers";
+    });
+  });
 })(jQuery);
