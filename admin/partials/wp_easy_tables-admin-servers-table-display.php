@@ -46,6 +46,8 @@ $controller = new WP_Easy_Tables_Servers_Controller();
                         <?php
                         foreach ($walkers as $walker) {
                             // Serializar el objeto $walker en un formato JSON seguro para HTML
+                            // Añadir al walker un atributo que identifique la tabla servidores.
+                            $walker->table = 'servers';
                             $walker_data_json = esc_attr(json_encode($walker));
 
                             echo '<tr class="user-table-row" data-walker=\'' . $walker_data_json . '\'>';

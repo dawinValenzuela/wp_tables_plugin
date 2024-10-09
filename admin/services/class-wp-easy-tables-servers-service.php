@@ -187,4 +187,30 @@ class WP_Easy_Tables_Servers_Service
             'special_diet' => $server->special_diet,
         );
     }
+
+    public function get_server($server_id)
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . 'easy_tables_servers';
+        return $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE id = %d", $server_id));
+    }
+
+    public function update_additional_info($server_id, $additional_info)
+    {
+        $server = $this->get_server($server_id);
+
+        if (!$server) {
+            return array('success' => false, 'message' => 'El servidor no existe.');
+        }
+
+        global $wpdb;
+        $servers_table = $wpdb->prefix . 'easy_tables_servers';
+        $result = $wpdb->update($servers_table, array('additional_info' => $additional_info), array('id' => $server_id));
+
+        if ($result === false) {
+            return array('success' => false, 'message' => 'Error al actualizar la información adicional.');
+        }
+
+        return array('success' => true, 'message' => 'Información adicional actualizada correctamente.');
+    }
 }

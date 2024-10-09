@@ -56,6 +56,15 @@ class WP_Easy_Tables_Admin
                 }
             ));
 
+            // route to add additional info to servers
+            register_rest_route('wp-easy-tables/v1', '/update-server-additional-info', array(
+                'methods' => 'POST',
+                'callback' => array(new WP_Easy_Tables_Servers_Controller(), 'update_additional_info'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            ));
+
             // export walkers to excel
             register_rest_route('wp-easy-tables/v1', '/export-walkers', array(
                 'methods' => 'GET',

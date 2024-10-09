@@ -62,6 +62,7 @@ $controller = new WP_Easy_Tables_Walkers_Controller();
                         <?php
                         foreach ($walkers as $walker) {
                             // Serializar el objeto $walker en un formato JSON seguro para HTML
+                            $walker->table = 'walkers';
                             $walker_data_json = esc_attr(json_encode($walker));
 
                             echo '<tr class="user-table-row" data-walker=\'' . $walker_data_json . '\'>';
