@@ -73,6 +73,15 @@ class WP_Easy_Tables_Admin
                     return true;
                 }
             ));
+
+            // export servers to excel
+            register_rest_route('wp-easy-tables/v1', '/export-servers', array(
+                'methods' => 'GET',
+                'callback' => array(new WP_Easy_Tables_Servers_Controller(), 'export_servers_to_excel'),
+                'permission_callback' => function () {
+                    return true;
+                }
+            ));
         });
     }
 

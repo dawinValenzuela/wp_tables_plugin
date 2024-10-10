@@ -13,6 +13,10 @@ $controller = new WP_Easy_Tables_Servers_Controller();
         <div class="migrate-button-container">
             <button id="migrate-servers" class="button button-primary">Migrar tabla servidores</button>
         </div>
+        <!-- Export to excel -->
+        <div class="export-button-container">
+            <button id="export-servers" class="button button-primary">Export Servers</button>
+        </div>
     </div>
     <?php
     $walkers = $controller->get_servers();
