@@ -29,6 +29,36 @@
   min-width: 100px; /* Asegura un ancho mínimo para las celdas */
 }
 
+.wp-easy-tables-table-container th.sticky,
+.wp-easy-tables-table-container td.sticky {
+  position: -webkit-sticky; /* Para Safari */
+  position: sticky;
+  left: 0;
+  background: #fff;
+  z-index: 1;
+  box-shadow: 1px 0 0 #ddd;
+}
+
+.wp-easy-tables-table-container th.sticky-1,
+.wp-easy-tables-table-container td.sticky-1 {
+  left: 0;
+}
+
+.wp-easy-tables-table-container th.sticky-2,
+.wp-easy-tables-table-container td.sticky-2 {
+  left: 100px; /* Ajusta este valor según el ancho de la columna */
+}
+
+.wp-easy-tables-table-container th.sticky-3,
+.wp-easy-tables-table-container td.sticky-3 {
+  left: 200px; /* Ajusta este valor según el ancho de la columna */
+}
+
+.wp-easy-tables-table-container th.sticky-4,
+.wp-easy-tables-table-container td.sticky-4 {
+  left: 300px; /* Ajusta este valor según el ancho de la columna */
+}
+
 @media (max-width: 768px) {
   .wp-easy-tables-table-container {
     min-width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
@@ -39,4 +69,9 @@
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
+}
+
+/* highlight each row on hover */
+.wp-easy-tables-table-container tr:hover {
+  background-color: #f1f1f1;
 }

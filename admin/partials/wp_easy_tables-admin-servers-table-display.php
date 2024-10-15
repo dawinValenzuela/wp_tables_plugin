@@ -27,10 +27,10 @@ $controller = new WP_Easy_Tables_Servers_Controller();
             <table cellspacing="0">
                 <thead>
                     <tr>
-                        <th id="user_actions" class="manage-column column-columnname" scope="col">Acciones</th>
-                        <th id="user_id" class="manage-column column-columnname" scope="col">ID</th>
-                        <th id="user_name" class="manage-column column-columnname" scope="col">Nombre</th>
-                        <th id="user_lastname" class="manage-column column-columnname" scope="col">Apellido</th>
+                        <th id="user_actions" class="manage-column column-columnname sticky sticky-1" scope="col">Acciones</th>
+                        <th id="user_id" class="manage-column column-columnname sticky sticky-2" scope="col">ID</th>
+                        <th id="user_name" class="manage-column column-columnname sticky sticky-3" scope="col">Nombre</th>
+                        <th id="user_lastname" class="manage-column column-columnname sticky sticky-4" scope="col">Apellido</th>
                         <th id="user_email" class="manage-column column-columnname" scope="col">Email</th>
                         <th id="user_phone" class="manage-column column-columnname" scope="col">Telefono</th>
                         <th id="user_birthdate" class="manage-column column-columnname" scope="col">Fecha de Nacimiento</th>
@@ -55,10 +55,10 @@ $controller = new WP_Easy_Tables_Servers_Controller();
                             $walker_data_json = esc_attr(json_encode($walker));
 
                             echo '<tr class="user-table-row" data-walker=\'' . $walker_data_json . '\'>';
-                            echo '<td class="user-action-container"></td>';
-                            echo '<td>' . esc_html($walker->id) . '</td>';
-                            echo '<td>' . esc_html($walker->first_name) . '</td>';
-                            echo '<td>' . esc_html($walker->last_name) . '</td>';
+                            echo '<td class="user-action-container sticky sticky-1"></td>';
+                            echo '<td class="sticky sticky-2">' . esc_html($walker->id) . '</td>';
+                            echo '<td class="sticky sticky-3">' . esc_html($walker->first_name) . '</td>';
+                            echo '<td class="sticky sticky-4">' . esc_html($walker->last_name) . '</td>';
                             echo '<td>' . esc_html($walker->email) . '</td>';
                             echo '<td>' . esc_html($walker->phone_number) . '</td>';
                             echo '<td>' . esc_html($walker->birthdate) . '</td>';
