@@ -10,6 +10,12 @@ $controller = new WP_Easy_Tables_Walkers_Controller();
 <div class="wrap">
     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
     <div class="wp-easy-tables-toolbar-container">
+        <!-- Search -->
+        <div class="search-container">
+            <input type="text" id="search-walkers" class="search" placeholder="Buscar caminantes">
+        </div>
+
+
         <div class="migrate-button-container">
             <button id="migrate-walkers" class="button button-primary">Migrate Walkers</button>
         </div>

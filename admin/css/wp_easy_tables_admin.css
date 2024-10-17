@@ -5,19 +5,21 @@
 .wp-easy-tables-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* Para un desplazamiento suave en dispositivos móviles */
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on mobile devices */
 }
 
 .wp-easy-tables-table-container {
-  display: inline-block;
-  min-width: 1000px; /* Ajusta este valor según el número de columnas */
+  display: block;
+  min-width: 1000px; /* Adjust this value based on the number of columns */
+  max-height: calc(100vh - 200px); /* Adjust this value based on your needs */
+  overflow: auto; /* Enable vertical and horizontal scrolling */
 }
 
 .wp-easy-tables-table-container table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: auto; /* Permite que las celdas se ajusten automáticamente */
-  background-color: #f9f9f9; /* Fondo de la tabla */
+  table-layout: auto; /* Allows cells to adjust automatically */
+  background-color: #f9f9f9; /* Table background */
 }
 
 .wp-easy-tables-table-container th,
@@ -25,43 +27,63 @@
   padding: 8px;
   text-align: left;
   border: 1px solid #ddd;
-  white-space: nowrap; /* Evita que el texto haga un salto de línea */
-  min-width: 100px; /* Asegura un ancho mínimo para las celdas */
+  white-space: nowrap; /* Prevents text from wrapping */
+  min-width: 100px; /* Ensures a minimum width for cells */
+}
+
+.wp-easy-tables-table-container th {
+  background-color: #4ebedc; /* Header background color */
+  color: #fff; /* Header text color */
+  position: sticky;
+  top: 0;
+  z-index: 3; /* Ensure headers are above other sticky elements */
 }
 
 .wp-easy-tables-table-container th.sticky,
 .wp-easy-tables-table-container td.sticky {
-  position: -webkit-sticky; /* Para Safari */
+  position: -webkit-sticky; /* For Safari */
   position: sticky;
   left: 0;
   background: #fff;
-  z-index: 1;
+  z-index: 2; /* Ensure sticky columns are above other elements */
   box-shadow: 1px 0 0 #ddd;
 }
 
 .wp-easy-tables-table-container th.sticky-1,
 .wp-easy-tables-table-container td.sticky-1 {
   left: 0;
+  z-index: 4; /* Ensure these headers are above other sticky elements */
 }
 
 .wp-easy-tables-table-container th.sticky-2,
 .wp-easy-tables-table-container td.sticky-2 {
-  left: 100px; /* Ajusta este valor según el ancho de la columna */
+  left: 100px; /* Adjust this value based on the column width */
+  z-index: 4; /* Ensure these headers are above other sticky elements */
 }
 
 .wp-easy-tables-table-container th.sticky-3,
 .wp-easy-tables-table-container td.sticky-3 {
-  left: 200px; /* Ajusta este valor según el ancho de la columna */
+  left: 200px; /* Adjust this value based on the column width */
+  z-index: 4; /* Ensure these headers are above other sticky elements */
 }
 
 .wp-easy-tables-table-container th.sticky-4,
 .wp-easy-tables-table-container td.sticky-4 {
-  left: 300px; /* Ajusta este valor según el ancho de la columna */
+  left: 300px; /* Adjust this value based on the column width */
+  z-index: 4; /* Ensure these headers are above other sticky elements */
+}
+
+.wp-easy-tables-table-container th.sticky {
+  background-color: #4ebedc; /* Header background color */
+  color: #fff; /* Header text color */
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 @media (max-width: 768px) {
   .wp-easy-tables-table-container {
-    min-width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+    min-width: 100%; /* Ensures the table occupies the full available width */
   }
 }
 

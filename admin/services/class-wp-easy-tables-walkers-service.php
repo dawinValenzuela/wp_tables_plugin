@@ -64,6 +64,13 @@ class WP_Easy_Tables_Walkers_Service
         return $wpdb->get_results("SELECT * FROM $walkers_table");
     }
 
+    public function search_walkers($search)
+    {
+        global $wpdb;
+        $walkers_table = $wpdb->prefix . 'easy_tables_walkers';
+        return $wpdb->get_results($wpdb->prepare("SELECT * FROM $walkers_table WHERE first_name LIKE %s OR last_name LIKE %s OR email LIKE %s", '%' . $search . '%', '%' . $search . '%', '%' . $search . '%'));
+    }
+
     public function get_submissions_values()
     {
         global $wpdb;

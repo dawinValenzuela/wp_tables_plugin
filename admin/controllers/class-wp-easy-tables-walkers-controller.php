@@ -30,6 +30,18 @@ class WP_Easy_Tables_Walkers_Controller
         return $this->service->get_walkers();
     }
 
+    public function search_walkers($request)
+    {
+        $search = $request->get_param('search');
+        $walkers = $this->service->search_walkers($search);
+
+        // Enviar la respuesta como JSON
+        wp_send_json_success($walkers);
+
+        // Finalizar la ejecución del script
+        wp_die();
+    }
+
     public function migrate_walkers()
     {
         $result = $this->service->migrate_walkers_to_new_table();
