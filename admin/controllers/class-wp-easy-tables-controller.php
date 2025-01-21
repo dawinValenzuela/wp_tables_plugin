@@ -21,4 +21,5 @@ class WP_Easy_Tables_Controller {
     public function get_filtered_users($filters) {
         return $this->service->fetch_filtered_users($filters);
     }
+    
 }
