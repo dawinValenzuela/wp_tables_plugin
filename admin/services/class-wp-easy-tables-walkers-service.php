@@ -61,7 +61,7 @@ class WP_Easy_Tables_Walkers_Service
     {
         global $wpdb;
         $walkers_table = $wpdb->prefix . 'easy_tables_walkers';
-        return $wpdb->get_results("SELECT * FROM $walkers_table");
+        return $wpdb->get_results("SELECT * FROM $walkers_table WHERE retreat_name = 'Retiro XIX 2025'");
     }
 
     public function search_walkers($search)
