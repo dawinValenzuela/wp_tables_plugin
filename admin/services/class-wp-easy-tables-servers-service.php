@@ -7,11 +7,25 @@ if (!defined('ABSPATH')) {
 class WP_Easy_Tables_Servers_Service
 {
 
+    //Private variables for the class
+    private $table_name;
+    private $form_name;
+    private $retreat_name;
+
+
+    public function __construct()
+    {
+        $this->table_name = 'easy_tables_servers';
+        $this->form_name = 'servers_form_xix_2025';
+        $this->retreat_name = 'Retiro XIX 2025';
+    }
+
+
     public function get_servers()
     {
         global $wpdb;
         $table = $wpdb->prefix . 'easy_tables_servers';
-        return $wpdb->get_results("SELECT * FROM $table");
+        return $wpdb->get_results("SELECT * FROM $table WHERE retreat_name = '$this->retreat_name'");
     }
 
     public function get_submissions_values()
@@ -22,7 +36,7 @@ class WP_Easy_Tables_Servers_Service
 
         // Get all submissions for the walkers_registration form and then get the information for each walker from the submissions_values table
 
-        $submissions = $wpdb->get_results("SELECT * FROM $submissions_table WHERE form_name = 'servers_form'");
+        $submissions = $wpdb->get_results("SELECT * FROM $submissions_table WHERE form_name = '$this->form_name'");
 
         $servers = array();
         foreach ($submissions as $submission) {
@@ -153,7 +167,7 @@ class WP_Easy_Tables_Servers_Service
         $existing_servers = $wpdb->get_results("SELECT * FROM $servers_table");
 
         foreach ($existing_servers as $existing_server) {
-            $submission = $wpdb->get_row($wpdb->prepare("SELECT * FROM $submissions_table WHERE form_name = 'servers_form' AND id = %d", $existing_server->submission_id));
+            $submission = $wpdb->get_row($wpdb->prepare("SELECT * FROM $submissions_table WHERE form_name = '$this->form_name' AND id = %d", $existing_server->submission_id));
             if (!$submission) {
                 $result = $wpdb->delete($servers_table, array('id' => $existing_server->id));
                 if ($result === false) {
