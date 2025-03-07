@@ -12,6 +12,17 @@ const renderUserRowActions = () => {
   });
 };
 
+const renderServersRowActions = () => {
+  const serverTableRows = document.querySelectorAll(".server-table-row");
+  serverTableRows.forEach((row) => {
+    const serverData = JSON.parse(row.getAttribute("data-server"));
+
+    const container = row.querySelector(".server-action-container");
+    // wp.element.render(<UserRowActions userData={serverData} />, container);
+    wp.element.render(<WalkersTable data={serverData} />, container);
+  });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   renderUserRowActions();
 });

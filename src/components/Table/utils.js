@@ -1,7 +1,6 @@
 import { Button, ButtonGroup } from "@wordpress/components";
 
 export const generateTableActions = (actions) => {
-  // if actions is empty return null
   if (!actions?.length) {
     return null;
   }

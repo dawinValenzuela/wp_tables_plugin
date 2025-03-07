@@ -1,0 +1,15 @@
+{
+  "phpsab.executablePathCBF": "/Users/dawinvalenzuela/Documents/ESTUDIOS/wordpress/wp-docker/wp-content/plugins/wp_easy_tables/vendor/bin/phpcbf",
+  "phpsab.standard": "WordPress",
+  "editor.formatOnSave": true,
+  "[php]": {
+    "editor.defaultFormatter": "valeryanm.vscode-phpsab"
+  },
+  "phpsab.executablePathCS": "/Users/dawinvalenzuela/Documents/ESTUDIOS/wordpress/wp-docker/wp-content/plugins/wp_easy_tables/vendor/bin/phpcs",
+  "phpsab.fixerArguments": [],
+  "intelephense.environment.includePaths": [
+    "vendor/wordpress",
+    "vendor/wordpress/wp-includes",
+    "vendor/wordpress/wp-admin"
+  ]
+}
