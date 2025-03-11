@@ -1,23 +1,42 @@
 <?php
-class WP_Easy_Tables_Activator
-{
-    public static function activate()
-    {
-        // Código para la activación del plugin.
-        self::create_walkers_table();
-        self::create_server_table();
-        self::create_churches();
-    }
+// phpcs:ignoreFile
+/**
+ * WP Easy Tables Activator
+ *
+ * This file contains the WP Easy Tables Activator class which handles the activation process for the WP Easy Tables plugin.
+ *
+ * @package WP_Easy_Tables
+ */
 
-    // function to create a new table for walkers, this should be call it when activate the plugin
-    public static function create_walkers_table()
-    {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'easy_tables_walkers';
+/**
+ * WP Easy Tables Activator
+ *
+ * This class handles the activation process for the WP Easy Tables plugin.
+ *
+ * @package WP_Easy_Tables
+ */
+class WP_Easy_Tables_Activator {
 
-        $charset_collate = $wpdb->get_charset_collate();
+	/**
+	 * Activates the WP Easy Tables plugin.
+	 */
+	public static function activate() {
+		// Código para la activación del plugin.
+		self::create_walkers_table();
+		self::create_server_table();
+		self::create_churches();
+	}
 
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+	/**
+	 * Creates the walkers table in the database.
+	 */
+	public static function create_walkers_table() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'easy_tables_walkers';
+
+		$charset_collate = $wpdb->get_charset_collate();
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             submission_id mediumint(9) NOT NULL,
             retreat_name varchar(255) NOT NULL,
@@ -53,18 +72,20 @@ class WP_Easy_Tables_Activator
             UNIQUE KEY unique_email (email)
         ) $charset_collate;";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql);
-    }
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
+	}
 
-    public static function create_server_table()
-    {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'easy_tables_servers';
+	/**
+	 * Creates the servers table in the database.
+	 */
+	public static function create_server_table() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'easy_tables_servers';
 
-        $charset_collate = $wpdb->get_charset_collate();
+		$charset_collate = $wpdb->get_charset_collate();
 
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             submission_id mediumint(9) NOT NULL,
             retreat_name varchar(255) NOT NULL,
@@ -87,48 +108,46 @@ class WP_Easy_Tables_Activator
             UNIQUE KEY unique_email (email)
         ) $charset_collate;";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql);
-    }
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
+	}
 
-    public static function create_churches()
-    {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'easy_tables_churches';
+	/**
+	 * Creates the churches table in the database and inserts initial data.
+	 */
+	public static function create_churches() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'easy_tables_churches';
 
-        $charset_collate = $wpdb->get_charset_collate();
+		$charset_collate = $wpdb->get_charset_collate();
 
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             church_name varchar(255) NOT NULL,
             PRIMARY KEY  (id),
             UNIQUE KEY unique_church_name (church_name)
         ) $charset_collate;";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql);
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
 
-        // Lista de iglesias para insertar
-        $churches = array(
-            'Divino Niño',
-            'Chiquinquira',
-            'Cristo Misionero',
-            'Divina Misericordia',
-            'Espiritu Santo - Aguachica',
-            'Maria Reina de las Misiones',
-            'Nuestra Señora - Lagos',
-            'Sagrado Corazón de Jesus',
-            'San Rafael Arcangel - Piedecuesta'
-        );
+		$churches = array(
+			'Divino Niño',
+			'Chiquinquira',
+			'Cristo Misionero',
+			'Divina Misericordia',
+			'Espiritu Santo - Aguachica',
+			'Maria Reina de las Misiones',
+			'Nuestra Señora - Lagos',
+			'Sagrado Corazón de Jesus',
+			'San Rafael Arcangel - Piedecuesta',
+		);
 
-        // Verificar si ya existen datos para no duplicar
-        foreach ($churches as $church_name) {
-            // Comprobar si ya existe la iglesia
-            $exists = $wpdb->get_var($wpdb->prepare("SELECT id FROM $table_name WHERE church_name = %s", $church_name));
-            if (!$exists) {
-                // Insertar si no existe
-                $wpdb->insert($table_name, array('church_name' => $church_name));
-            }
-        }
-    }
+		foreach ( $churches as $church_name ) {
+			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $table_name WHERE church_name = %s", $church_name ) );
+			if ( ! $exists ) {
+				$wpdb->insert( $table_name, array( 'church_name' => $church_name ) );
+			}
+		}
+	}
 }

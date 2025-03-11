@@ -1,5 +1,10 @@
 <?php
-// Check if accessed directly
+/**
+ * Check if accessed directly.
+ *
+ * @package WP_Easy_Tables
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -10,12 +15,6 @@ $controller = new WP_Easy_Tables_Walkers_Controller();
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	<div class="wp-easy-tables-toolbar-container">
-		<!-- Search -->
-		<div class="search-container">
-			<input type="text" id="search-walkers" class="search" placeholder="Buscar caminantes">
-		</div>
-
-
 		<div class="migrate-button-container">
 			<button id="migrate-walkers" class="button button-primary">Migrate Walkers</button>
 		</div>
@@ -67,11 +66,10 @@ $controller = new WP_Easy_Tables_Walkers_Controller();
 					<?php if ( ! empty( $walkers ) ) : ?>
 						<?php
 						foreach ( $walkers as $walker ) {
-							// Serializar el objeto $walker en un formato JSON seguro para HTML
 							$walker->table    = 'walkers';
-							$walker_data_json = esc_attr( json_encode( $walker ) );
+							$walker_data_json = esc_attr( wp_json_encode( $walker ) );
 
-							echo '<tr class="user-table-row" data-walker=\'' . $walker_data_json . '\'>';
+							echo '<tr class="user-table-row" data-walker=\'' . esc_attr( $walker_data_json ) . '\'>';
 							echo '<td class="user-action-container sticky sticky-1"></td>';
 							echo '<td class="sticky sticky-2">' . esc_html( $walker->id ) . '</td>';
 							echo '<td class="sticky sticky-3">' . esc_html( $walker->first_name ) . '</td>';
@@ -112,16 +110,4 @@ $controller = new WP_Easy_Tables_Walkers_Controller();
 			</table>
 		</div>
 	</div>
-
-	<!-- 
-	<?php
-			// Pagination links
-			echo paginate_links(
-				array(
-					'total'   => $total_pages,
-					'current' => $paged,
-				)
-			);
-			?>
-			-->
 </div>

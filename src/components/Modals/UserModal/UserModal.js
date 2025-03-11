@@ -44,11 +44,8 @@ export const UserModal = ({ setModalOpen, data }) => {
             },
           ]}
         >
-          {(tab) => <div className={tab.className}>{tab.content}</div>}
+          {(tab) => <div className={tab.className}> {tab.content} </div>}
         </TabPanel>
-        <Button type="submit" variant="secondary">
-          Guardar
-        </Button>
       </form>
     </Modal>
   );

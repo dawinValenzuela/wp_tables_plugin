@@ -11,5 +11,9 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
+  },
+  "scripts": {
+    "fix-php": "vendor/bin/phpcbf --standard=WordPress --ignore=vendor,node_modules --extensions=php .",
+    "check-php": "vendor/bin/phpcs --standard=WordPress --ignore=vendor,node_modules --extensions=php ."
   }
 }

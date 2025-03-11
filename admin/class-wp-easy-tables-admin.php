@@ -171,7 +171,7 @@ class WP_Easy_Tables_Admin {
 	 * Displays the admin page for the walkers table.
 	 */
 	public function display_walkers_table_page() {
-		include_once 'partials/wp_easy_tables-admin-walkers-table-display.php';
+		include_once 'partials/wp-easy-tables-admin-walkers-table-display.php';
 	}
 
 	/**
@@ -246,8 +246,11 @@ class WP_Easy_Tables_Admin {
 		// Define a nonce for security.
 		wp_localize_script(
 			'wp-easy-tables-scripts',
-			'wp_easy_tables_nonce',
-			array( 'nonce' => wp_create_nonce( 'wp_easy_tables_nonce' ) )
+			'wpEasyTablesSettings',
+			array(
+				'nonce'    => wp_create_nonce( 'wp_rest' ),
+				'rest_url' => esc_url_raw( rest_url( 'wp-easy-tables/v1/' ) ),
+			)
 		);
 	}
 }

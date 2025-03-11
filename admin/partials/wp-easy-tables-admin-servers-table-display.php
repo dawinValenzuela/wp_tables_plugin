@@ -25,10 +25,6 @@ $controller = new WP_Easy_Tables_Servers_Controller();
 	</div>
 	<?php
 	$servers = $controller->get_servers();
-
-	echo '<pre>';
-	print_r( $walkers );
-	echo '</pre>'
 	?>
 
 	<div class="wp-easy-tables-table-wrapper">
@@ -55,31 +51,31 @@ $controller = new WP_Easy_Tables_Servers_Controller();
 					</tr>
 				</thead>
 				<tbody>
-					<?php if ( ! empty( $walkers ) ) : ?>
+					<?php if ( ! empty( $servers ) ) : ?>
 						<?php
-						foreach ( $walkers as $walker ) {
-							// Serializar el objeto $walker en un formato JSON seguro para HTML
-							// Añadir al walker un atributo que identifique la tabla servidores.
-							$walker->table    = 'servers';
-							$walker_data_json = esc_attr( wp_json_encode( $walker ) );
+						foreach ( $servers as $server ) {
+							// Serializar el objeto $server en un formato JSON seguro para HTML
+							// Añadir al server un atributo que identifique la tabla servidores.
+							$server->table    = 'servers';
+							$server_data_json = esc_attr( wp_json_encode( $server ) );
 
-							echo '<tr class="servers-table-row" data-servers="' . esc_attr( $walker_data_json ) . '">';
+							echo '<tr class="servers-table-row" data-servers="' . esc_attr( $server_data_json ) . '">';
 							echo '<td class="servers-action-container sticky sticky-1"></td>';
-							echo '<td class="sticky sticky-2">' . esc_html( $walker->id ) . '</td>';
-							echo '<td class="sticky sticky-3">' . esc_html( $walker->first_name ) . '</td>';
-							echo '<td class="sticky sticky-4">' . esc_html( $walker->last_name ) . '</td>';
-							echo '<td>' . esc_html( $walker->email ) . '</td>';
-							echo '<td>' . esc_html( $walker->phone_number ) . '</td>';
-							echo '<td>' . esc_html( $walker->birthdate ) . '</td>';
-							echo '<td>' . esc_html( $walker->eps ) . '</td>';
-							echo '<td>' . esc_html( $walker->church ) . '</td>';
-							echo '<td>' . esc_html( $walker->first_service_date ) . '</td>';
-							echo '<td>' . esc_html( $walker->emergency_contact_name ) . '</td>';
-							echo '<td>' . esc_html( $walker->emergency_contact_phone ) . '</td>';
-							echo '<td>' . esc_html( $walker->emergency_contact_relationship ) . '</td>';
-							echo '<td>' . esc_html( $walker->medical_condition ) . '</td>';
-							echo '<td>' . esc_html( $walker->special_diet ) . '</td>';
-							echo '<td>' . esc_html( $walker->additional_info ) . '</td>';
+							echo '<td class="sticky sticky-2">' . esc_html( $server->id ) . '</td>';
+							echo '<td class="sticky sticky-3">' . esc_html( $server->first_name ) . '</td>';
+							echo '<td class="sticky sticky-4">' . esc_html( $server->last_name ) . '</td>';
+							echo '<td>' . esc_html( $server->email ) . '</td>';
+							echo '<td>' . esc_html( $server->phone_number ) . '</td>';
+							echo '<td>' . esc_html( $server->birthdate ) . '</td>';
+							echo '<td>' . esc_html( $server->eps ) . '</td>';
+							echo '<td>' . esc_html( $server->church ) . '</td>';
+							echo '<td>' . esc_html( $server->first_service_date ) . '</td>';
+							echo '<td>' . esc_html( $server->emergency_contact_name ) . '</td>';
+							echo '<td>' . esc_html( $server->emergency_contact_phone ) . '</td>';
+							echo '<td>' . esc_html( $server->emergency_contact_relationship ) . '</td>';
+							echo '<td>' . esc_html( $server->medical_condition ) . '</td>';
+							echo '<td>' . esc_html( $server->special_diet ) . '</td>';
+							echo '<td>' . esc_html( $server->additional_info ) . '</td>';
 							echo '</tr>';
 						}
 						?>
