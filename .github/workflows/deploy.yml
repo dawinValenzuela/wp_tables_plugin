@@ -1,0 +1,42 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main  # Ejecutar solo cuando se haga push a main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🚀 Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.HOSTINGER_IP }} >> ~/.ssh/known_hosts
+
+      - name: 📂 Deploy only necessary files
+        run: |
+          rsync -avz --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='node_modules/' \
+            --exclude='tests/' \
+            --exclude='.gitignore' \
+            --exclude='.editorconfig' \
+            --exclude='README.md' \
+            --exclude='package-lock.json' \
+            --exclude='package.json' \
+            --exclude='webpack.config.js' \
+            --exclude='yarn.lock' \
+            --exclude='composer.json' \
+            --exclude='composer.lock' \
+            ./ ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_IP }}:/home/${{ secrets.HOSTINGER_USER }}/public_html/wp-content/plugins/wp_easy_tables/
+
+      - name: ✅ Deployment completed
+        run: echo "🚀 Deploy successful!"

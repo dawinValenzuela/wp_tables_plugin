@@ -1,4 +1,5 @@
-import { WalkersTable } from "./pages/Walkers/WalkersTable";
+import { WalkersTable } from "./pages/walkers/WalkersTable";
+import { ServersTable } from "./pages/servers/ServersTable";
 
 // Renderizar el componente
 const renderUserRowActions = () => {
@@ -7,11 +8,21 @@ const renderUserRowActions = () => {
     const walkerData = JSON.parse(row.getAttribute("data-walker"));
 
     const container = row.querySelector(".user-action-container");
-    // wp.element.render(<UserRowActions userData={walkerData} />, container);
     wp.element.render(<WalkersTable data={walkerData} />, container);
+  });
+};
+
+const renderServersRowActions = () => {
+  const serverTableRows = document.querySelectorAll(".servers-table-row");
+  serverTableRows.forEach((row) => {
+    const serverData = JSON.parse(row.getAttribute("data-servers"));
+
+    const container = row.querySelector(".servers-action-container");
+    wp.element.render(<ServersTable data={serverData} />, container);
   });
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   renderUserRowActions();
+  renderServersRowActions();
 });
